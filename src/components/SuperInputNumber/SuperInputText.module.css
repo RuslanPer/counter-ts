@@ -1,5 +1,4 @@
 .superInput {
-    width: 300px;
     height: 30px;
     line-height: 46px;
     padding: 0 20px;
@@ -7,7 +6,6 @@
     font-size: 15px;
     color: #808080;
     max-width: 100%;
-    box-sizing: border-box;
     display: block;
     background-color: #fff;
     font-weight: 400;
@@ -17,9 +15,5 @@
 }
 
 .errorInput {
-    border: 1px solid rgba(239, 68, 68);
-}
-
-.error {
-    color: rgba(239, 68, 68);
+    border: 2px solid rgba(239, 68, 68);
 }

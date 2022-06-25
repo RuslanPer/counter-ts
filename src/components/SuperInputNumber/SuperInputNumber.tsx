@@ -5,17 +5,16 @@ type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElem
 
 type SuperInputTextPropsType = DefaultInputPropsType & {
     onChangeNumber?: (value: number) => void
-    error?: string
-    spanClassName?: string
+    error?: boolean
 }
 
 const SuperInputNumber: React.FC<SuperInputTextPropsType> = (
     {
         type,
         onChange, onChangeNumber,
-        onKeyPress,
         error,
-        className, spanClassName,
+        className,
+        value,
 
         ...restProps
     }
@@ -27,7 +26,7 @@ const SuperInputNumber: React.FC<SuperInputTextPropsType> = (
         onChangeNumber && onChangeNumber(Number(e.currentTarget.value))
     }
 
-    const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`
+
     const finalInputClassName = `${error ? s.superInput + ' ' + s.errorInput : s.superInput} ${className}`
 
     return (
@@ -36,10 +35,10 @@ const SuperInputNumber: React.FC<SuperInputTextPropsType> = (
                 type={'number'}
                 onChange={onChangeCallback}
                 className={finalInputClassName}
+                value={value}
 
                 {...restProps}
             />
-            {error && <span className={finalSpanClassName}>{error}</span>}
         </>
     )
 }

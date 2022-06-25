@@ -19,6 +19,7 @@
     border: 1px solid #424242;
     border-radius: 6px;
     padding: 20px 0;
+    min-height: 150px;
 }
 
 .buttons{
@@ -30,15 +31,6 @@
     width: 100%;
     border: 1px solid #424242;
     border-radius: 6px;
-}
-.counter{
-    font-size: 50px;
-}
-
-.counterRed{
-    font-size: 50px;
-    font-weight: 500;
-    color: red;
 }
 
 .tableRow {
