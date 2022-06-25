@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './FullCounter.module.css'
 import {Button} from "../Button/Button"
 import FullCounterSettings from "./FullCounterSettings/FullCounterSettings";
@@ -8,16 +8,29 @@ export type counterSettingsType = {
     maxCount: number
 }
 
-export const FullCounter: React.FC = () => {
-
-    const [counterSettings, setCounterSettings] = useState<counterSettingsType>({
+const getLocalFullCounterSettings = () => {
+    let localSettings = localStorage.getItem('FullCounterSettings')
+    if (localSettings) {
+        return (JSON.parse(localSettings))
+    }else return {
         minCount: 0,
         maxCount: 5
-    })
-    const [count, setCount] = useState<number>(counterSettings.minCount)
-    const [error, setError] = useState<boolean>(false)
-    const [settingsHaveChanged, setSettingsHaveChanged] = useState<boolean>(false)
-    const [showSettings, setShowSettings] = useState<boolean>(false)
+    }
+}
+
+export const FullCounter: React.FC = () => {
+    const [counterSettings, setCounterSettings] = useState<counterSettingsType>(getLocalFullCounterSettings())
+
+    const [count, setCount] = useState(counterSettings.minCount)
+    const [error, setError] = useState(false)
+    const [settingsHaveChanged, setSettingsHaveChanged] = useState(false)
+    const [showSettings, setShowSettings] = useState(false)
+
+
+    useEffect( () => {
+        localStorage.setItem('FullCounterSettings', JSON.stringify(counterSettings))
+    }, [counterSettings])
+
 
     const changeCounterSettings = (newMinCount: number, newMaxCount: number) => {
         setCounterSettings({...counterSettings, minCount: newMinCount, maxCount: newMaxCount})
@@ -52,7 +65,6 @@ export const FullCounter: React.FC = () => {
             {showSettings
                 ? <FullCounterSettings error={error}
                                        setError={setError}
-                                       setShowSettings={setShowSettings}
                                        setSettingsHaveChanged={setSettingsHaveChanged}
                                        counterSettings={counterSettings}
                                        changeCounterSettings={changeCounterSettings}/>

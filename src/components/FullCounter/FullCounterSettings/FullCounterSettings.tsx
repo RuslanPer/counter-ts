@@ -8,7 +8,6 @@ type CounterSettingsPropsType = {
     error: boolean
     setError: Dispatch<SetStateAction<boolean>>
     setSettingsHaveChanged: Dispatch<SetStateAction<boolean>>
-    setShowSettings: Dispatch<SetStateAction<boolean>>
     counterSettings: counterSettingsType
     changeCounterSettings: (newMinCount: number, newMaxCount: number) => void
 }
@@ -18,16 +17,15 @@ const FullCounterSettings: React.FC<CounterSettingsPropsType> = (
         error,
         setError,
         setSettingsHaveChanged,
-        setShowSettings,
         counterSettings,
         changeCounterSettings}
 ) => {
 
-    const [newMinCount, setNewMinCount] = useState<number>(counterSettings.minCount);
-    const [newMaxCount, setNewMaxCount] = useState<number>(counterSettings.maxCount);
+    const [newMinCount, setNewMinCount] = useState(counterSettings.minCount);
+    const [newMaxCount, setNewMaxCount] = useState(counterSettings.maxCount);
 
-    const [errorMinCount, setErrorMinCount] = useState<boolean>(false);
-    const [errorMaxCount, setErrorMaxCount] = useState<boolean>(false);
+    const [errorMinCount, setErrorMinCount] = useState(false);
+    const [errorMaxCount, setErrorMaxCount] = useState(false);
 
     const buttonCallbackHandler = () => {
         changeCounterSettings(newMinCount,newMaxCount)

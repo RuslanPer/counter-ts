@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './Counter.module.css'
 import {Button} from "../Button/Button"
 import CounterSettings from "./CounterSettings/CounterSettings";
@@ -8,20 +8,33 @@ export type counterSettingsType = {
     maxCount: number
 }
 
-export const Counter: React.FC = () => {
-
-    const [counterSettings, setCounterSettings] = useState<counterSettingsType>({
+const getLocalCounterSettings = () => {
+    let localSettings = localStorage.getItem('counterSettings')
+    if (localSettings) {
+        return (JSON.parse(localSettings))
+    }else return {
         minCount: 0,
         maxCount: 5
-    })
-    const [count, setCount] = useState<number>(counterSettings.minCount)
-    const [error, setError] = useState<boolean>(false)
-    const [settingsHaveChanged, setSettingsHaveChanged] = useState<boolean>(false)
+    }
+}
+
+
+export const Counter: React.FC = () => {
+
+    const [counterSettings, setCounterSettings] = useState<counterSettingsType>(getLocalCounterSettings())
+    const [count, setCount] = useState(counterSettings.minCount)
+    const [error, setError] = useState(false)
+    const [settingsHaveChanged, setSettingsHaveChanged] = useState(false)
+
+    useEffect( () => {
+        localStorage.setItem('counterSettings', JSON.stringify(counterSettings))
+    }, [counterSettings])
 
     const changeCounterSettings = (newMinCount: number, newMaxCount: number) => {
         setCounterSettings({...counterSettings, minCount: newMinCount, maxCount: newMaxCount})
         setCount(newMinCount)
         setSettingsHaveChanged(false)
+
     }
 
     const inc = () => {

@@ -21,11 +21,11 @@ const CounterSettings: React.FC<CounterSettingsPropsType> = (
         changeCounterSettings}
 ) => {
 
-    const [newMinCount, setNewMinCount] = useState<number>(counterSettings.minCount);
-    const [newMaxCount, setNewMaxCount] = useState<number>(counterSettings.maxCount);
+    const [newMinCount, setNewMinCount] = useState(counterSettings.minCount);
+    const [newMaxCount, setNewMaxCount] = useState(counterSettings.maxCount);
 
-    const [errorMinCount, setErrorMinCount] = useState<boolean>(false);
-    const [errorMaxCount, setErrorMaxCount] = useState<boolean>(false);
+    const [errorMinCount, setErrorMinCount] = useState(false);
+    const [errorMaxCount, setErrorMaxCount] = useState(false);
 
     const buttonCallbackHandler = () => {
         changeCounterSettings(newMinCount,newMaxCount)
