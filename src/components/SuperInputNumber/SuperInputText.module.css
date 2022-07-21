@@ -3,7 +3,7 @@
     line-height: 46px;
     padding: 0 20px;
     outline: none;
-    font-size: 15px;
+    font-size: 20px;
     color: #808080;
     max-width: 100%;
     display: block;
@@ -11,7 +11,7 @@
     font-weight: 400;
     opacity: 1;
     border-radius: 6px;
-    border: 1px solid #808080;
+    border: 3px solid #808080;
 }
 
 .errorInput {

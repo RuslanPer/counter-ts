@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
 import {Counter} from "./components/Counter/Counter";
-import {FullCounter} from "./components/FullCounter/FullCounter";
+import CounterContainer from "./components/Counter/CounterContainer";
 
 function App() {
 
     return (
         <div className="App">
-            <Counter/>
-            <FullCounter/>
+            <CounterContainer/>
         </div>
     );
 }

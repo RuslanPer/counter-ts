@@ -5,13 +5,16 @@
     column-gap: 20px;
 }
 .wrapBlock {
-    width: 400px;
-    padding: 10px;
+    box-sizing: border-box;
+    width: 700px;
+    height: 450px;
+    padding: 50px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    row-gap: 5px;
-    border: 1px solid #424242;
+    row-gap: 20px;
+    border: 3px solid #424242;
     background-color: #232626;
     border-radius: 6px;
     color: #f1f1f1;
@@ -23,7 +26,7 @@
     justify-content: center;
     width: 100%;
     min-height: 150px;
-    border: 1px solid #424242;
+    border: 3px solid #424242;
     border-radius: 6px;
     padding: 20px 0;
     font-size: 30px;
@@ -33,10 +36,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100px;
     column-gap: 10px;
     padding: 10px 0;
     width: 100%;
-    border: 1px solid #424242;
+    border: 3px solid #424242;
     border-radius: 6px;
 }
 .counter{
@@ -47,14 +51,4 @@
     font-size: 50px;
     font-weight: 500;
     color: red;
-}
-
-.errorValue{
-    font-weight: 500;
-    color: red;
-}
-
-.pressValue{
-    font-weight: 500;
-    color: rgba(37, 99, 235);
 }

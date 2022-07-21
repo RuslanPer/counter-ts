@@ -2,57 +2,47 @@ import React, {Dispatch, SetStateAction, useState} from 'react';
 import style from "./CounterSettings.module.css";
 import SuperInputNumber from "../../SuperInputNumber/SuperInputNumber";
 import {Button} from "../../Button/Button";
-import {counterSettingsType} from "../Counter";
+import {counterSettingsType} from '../../../BLL/counter-reducer';
 
 type CounterSettingsPropsType = {
-    error: boolean
-    setError: Dispatch<SetStateAction<boolean>>
-    setSettingsHaveChanged: Dispatch<SetStateAction<boolean>>
     counterSettings: counterSettingsType
+    setShowSettings: (showSettings: boolean) => void
     changeCounterSettings: (newMinCount: number, newMaxCount: number) => void
 }
 
 const CounterSettings: React.FC<CounterSettingsPropsType> = (
     {
-        error,
-        setError,
-        setSettingsHaveChanged,
         counterSettings,
+        setShowSettings,
         changeCounterSettings}
 ) => {
 
+    const [error, setError] = useState(false)
     const [newMinCount, setNewMinCount] = useState(counterSettings.minCount);
     const [newMaxCount, setNewMaxCount] = useState(counterSettings.maxCount);
 
-    const [errorMinCount, setErrorMinCount] = useState(false);
-    const [errorMaxCount, setErrorMaxCount] = useState(false);
 
     const buttonCallbackHandler = () => {
         changeCounterSettings(newMinCount,newMaxCount)
+        setShowSettings(false)
     }
 
     const changeNewMinCount = (value: number) => {
         if (value < 0 || value >= newMaxCount) {
-            setErrorMinCount(true)
             setError(true)
             setNewMinCount(value)
         }else {
-            setErrorMinCount(false)
             setError(false)
-            setSettingsHaveChanged(true)
             setNewMinCount(value)
         }
 
     }
     const changeNewMaxCount = (value: number) => {
         if (value <= newMinCount) {
-            setErrorMaxCount(true)
             setError(true)
             setNewMaxCount(value)
         }else {
-            setErrorMaxCount(false)
             setError(false)
-            setSettingsHaveChanged(true)
             setNewMaxCount(value)
         }
 
@@ -63,15 +53,18 @@ const CounterSettings: React.FC<CounterSettingsPropsType> = (
         <div className={style.wrapBlock}>
             <div className={style.counterTable}>
                 <div className={style.tableRow}>
-                    <span className={style.settingsTitle}>max value:</span>
+                    <span className={style.settingsTitle}>Max value:</span>
                     <SuperInputNumber value={newMaxCount}
-                                      onChangeNumber={changeNewMaxCount} error={errorMaxCount}/>
+                                      onChangeNumber={changeNewMaxCount} error={error}/>
                 </div>
                 <div className={style.tableRow}>
-                    <span className={style.settingsTitle}>start value:</span>
+                    <span className={style.settingsTitle}>Start value:</span>
                     <SuperInputNumber value={newMinCount}
-                                      onChangeNumber={changeNewMinCount} error={errorMinCount}/>
+                                      onChangeNumber={changeNewMinCount} error={error}/>
                 </div>
+
+                {error && <div className={style.errorValue}>invalid value entered</div>}
+
             </div>
             <div className={style.buttons}>
                 <Button callBack={buttonCallbackHandler} disabled={error}>
